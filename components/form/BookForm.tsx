@@ -28,7 +28,7 @@ const BookForm = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-          description: "A story about AI taking over.",
+          description: "",
         },
     })
 
@@ -45,8 +45,9 @@ const BookForm = () => {
           toast({
             title: "Books generated successfully"
           })
+          console.log(session?.user.email)
         const dbResponse = await axios.post("/api/books/new", {
-          id: session?.user.id,
+          id: session?.user.email,
           promptSummary: json.promptSummary,
           books: json.books
         })

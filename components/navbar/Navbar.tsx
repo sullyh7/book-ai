@@ -26,7 +26,7 @@ const Navbar = () => {
             <Image className='hover:cursor-pointer rounded' src={session.user.image!} alt={session.user.name!} height={45} width={45}/>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>Account</DropdownMenuLabel>
+            <DropdownMenuLabel>Account {session.user.email}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => {signOut()}}>
           <LogOut className="hover:cursor-pointer mr-2 h-4 w-4" />
