@@ -9,7 +9,7 @@ export const POST = async (request: Request) => {
 
     try {
         await connectToDb();
-        const user = await  User.findOne(email);
+        const user = await  User.findOne({email});
         const newPrompt = new BookResponse({ creator: user._id, promptSummary, books });
 
         await newPrompt.save();
