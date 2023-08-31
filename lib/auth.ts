@@ -22,21 +22,22 @@ export const authOptions: NextAuthOptions = {
         async signIn({ account, profile, user, credentials }) {
       try {
         await connectToDb();
+        const p = profile as any;
 
         // check if user already exists
-        const userExists = await User.findOne({ email: profile.email });
+        const userExists = await User.findOne({ email: profile!.email });
 
         // if not, create a new document and save user in MongoDB
         if (!userExists) {
           await User.create({
-            email: profile.email,
-            image: profile.picture,
+            email: profile!.email,
+            image: p!.picture,
           });
         }
 
         return true
       } catch (error) {
-        console.log("Error checking if user exists: ", error.message);
+        console.log("Error checking if user exists: ");
         return false
       }
     },
