@@ -13,7 +13,7 @@ const BookResponseContainer = () => {
 
   useEffect(() => {
     const fetchBookReponses= async () => {
-      const response = await axios.post("/api/books/fetch", {id: session?.user.id})
+      const response = await axios.post("/api/books/fetch", {email: session?.user.email})
       const bookResponses: [BookResponse] = response.data
       for (let bookResp of bookResponses) {
         addBookResponse(bookResp)
