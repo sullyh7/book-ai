@@ -57,14 +57,14 @@ const BookResponseCard = (bookresponse: BookResponseCardProps) => {
       <Card className="hover:cursor-pointer">
       <CardHeader>
         <CardTitle className=' flex items-center gap-x-3'>{bookresponse.promptSummary} <LucideArrowRightSquare/></CardTitle>
-        <CardDescription>
-        <ol>
-            {bookresponse.books.map((book, index) => <li key={index}>
+        {/* <CardDescription> */}
+        {/* <ol> */}
+            {bookresponse.books.map((book, index) => <div key={index}>
               <h1>{book.title}</h1>
               {/* <p>{book.description}</p> */}
-            </li>)}
-            </ol>
-        </CardDescription>
+            </div>)}
+            {/* </ol> */}
+        {/* </CardDescription> */}
       </CardHeader>
       <CardContent>
         
@@ -76,9 +76,9 @@ const BookResponseCard = (bookresponse: BookResponseCardProps) => {
       <DialogContent className="">
         <DialogHeader>
           <DialogTitle>
-            <h1 className='text-2xl'>{bookresponse.promptSummary}</h1>
+            <p className='text-2xl'>{bookresponse.promptSummary}</p>
           </DialogTitle>
-          <DialogDescription className='flex flex-col justify-center items-center'>
+          <div className='flex flex-col justify-center items-center'>
             <ol className='flex flex-col gap-y-5'>
             {bookresponse.books.map((book, index) => <li key={index}>
               <h1 className='text-lg'>{book.title}</h1>
@@ -86,7 +86,7 @@ const BookResponseCard = (bookresponse: BookResponseCardProps) => {
             </li>)}
             </ol>
             
-          </DialogDescription>
+          </div>
         </DialogHeader>
         <DialogFooter>
           <Button onClick={() => {setOpen(false)}} type="button">Done.</Button>

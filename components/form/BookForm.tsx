@@ -4,14 +4,15 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from './ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-import { Textarea } from './ui/textarea';
+import { Button } from '../ui/button';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { Textarea } from '../ui/textarea';
 import { useRouter } from 'next/navigation';
 import axios  from "axios";
 import { useBookResponseStore } from '@/store/BookStore';
 import { Book, BookResponse } from '@/types';
-import { useToast } from './ui/use-toast';
+import { useToast } from '../ui/use-toast';
+import { useSession } from 'next-auth/react';
 
 const formSchema = z.object({
     description: z.string().min(10, {message: "You need at least 10 characters minimum."})
@@ -22,6 +23,7 @@ const BookForm = () => {
     const router = useRouter();
     const { addBookResponse } = useBookResponseStore();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const {data: session} = useSession();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -38,13 +40,16 @@ const BookForm = () => {
         setIsLoading(true);
         const response = await axios.post("/api/books", {description: values.description}) 
         const body = await response.data;
-        const json = JSON.parse(body);
-        addBookResponse(
-          json
-        )
+        const json = JSON.parse(body) as BookResponse;
+        addBookResponse(json)
           toast({
             title: "Books generated successfully"
           })
+        const dbResponse = await axios.post("/api/books/new", {
+          id: session?.user.id,
+          promptSummary: json.promptSummary,
+          books: json.books
+        })
       } catch (error) {
           console.log(error)
           toast({

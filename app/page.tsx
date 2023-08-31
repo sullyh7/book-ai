@@ -1,4 +1,5 @@
-import BookForm from '@/components/BookForm'
+import BookEntry from '@/components/BookEntry'
+import BookForm from '@/components/form/BookForm'
 import BookResponseContainer from '@/components/bookreponses/BookResponseContainer'
 import React from 'react'
 
@@ -12,9 +13,9 @@ const Home = () => {
         <p className='text-gray-400'>Type a breif description of a story your looking for.</p>
       </div>
       
+
       <div className='w-full flex flex-col gap-y-10'>
-        <BookForm/>
-        <BookResponseContainer />
+        <BookEntry />
       </div>
       
     </div>
