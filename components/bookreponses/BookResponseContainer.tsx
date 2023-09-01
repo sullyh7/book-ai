@@ -24,7 +24,7 @@ const BookResponseContainer = () => {
     } catch (error) {
       console.log(error)
     }
-  }, [addBookResponse, session?.user.id])
+  }, [addBookResponse, session?.user.email])
 
   return (
     <>

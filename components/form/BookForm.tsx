@@ -47,7 +47,7 @@ const BookForm = () => {
           })
           console.log(session?.user.email)
         const dbResponse = await axios.post("/api/books/new", {
-          id: session?.user.email,
+          email: session?.user.email,
           promptSummary: json.promptSummary,
           books: json.books
         })
